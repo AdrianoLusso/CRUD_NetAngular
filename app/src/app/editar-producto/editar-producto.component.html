@@ -1,0 +1,11 @@
+@if (ropa != null) {
+    <app-mostrar-errores [errores] = "errores"></app-mostrar-errores>
+    <app-formulario-producto 
+        titulo = "Editar prenda de ropa"
+        [ropa]="ropa"
+        [editar]="true"
+        (posteoFormulario) ="guardarCambios($event)">
+    </app-formulario-producto>
+} @else {
+    <app-loading></app-loading>
+}

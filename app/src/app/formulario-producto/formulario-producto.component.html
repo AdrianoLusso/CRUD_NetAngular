@@ -1,0 +1,130 @@
+<h2>{{titulo}}</h2>
+
+<form (submit) = "guardarCambios()" [formGroup] = "form">
+    <mat-form-field appearence = "outline">
+        <mat-label>Código</mat-label>
+        @if(editar){
+            <input disabled [value]="form.value.codigo" matInput/>
+        }@else{
+            <input [formControl]="form.controls.codigo" matInput/>
+        }
+        <mat-error>{{obtenerError(form.controls.codigo,"El campo debe ser un código numérico.")}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearence = "outline">
+        <mat-label>Marca</mat-label>
+        <input [formControl]="form.controls.marca" matInput/>
+        <mat-error>{{obtenerError(form.controls.marca)}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearence = "outline">
+        <mat-label>Modelo</mat-label>
+        <input [formControl]="form.controls.modelo" matInput/>
+        <mat-error>{{obtenerError(form.controls.modelo)}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearence = "outline">
+        <mat-label>Tipo de talle</mat-label>
+        <mat-select [formControl]="form.controls.tipoTalle">
+            @for (talle of TipoTalle; track talle){
+                <mat-option [value]="talle.value">{{talle.key}}</mat-option>
+            }
+        </mat-select>
+        <mat-error>{{obtenerError(form.controls.tipoTalle)}}</mat-error>
+    </mat-form-field>
+    
+    @if(form.controls.tipoTalle.value === "categorico")
+    {
+        <mat-form-field appearence = "outline">
+           <mat-label>Talle</mat-label>      
+           <mat-select [formControl]="form.controls.talle">
+                @for (talle of TalleCategorico; track talle){
+                <mat-option [value]="talle.value">{{talle.key}}</mat-option>
+                }
+            </mat-select>
+            <mat-error>{{obtenerError(form.controls.talle)}}</mat-error>
+        </mat-form-field>
+    }@else if (form.controls.tipoTalle.value === "numerico"){
+        <mat-form-field appearence = "outline">
+            <mat-label>Talle *</mat-label>    
+            <input 
+            type="number" 
+            min="20" 
+            max="100" 
+            [formControl]="form.controls.talleNumerico" 
+            matInput/>
+            <mat-error>{{obtenerError(form.controls.talleNumerico,"El campo requiere un valor entre 20-100.")}}</mat-error>
+        </mat-form-field>
+
+    }@else{
+        <mat-form-field appearence = "outline">
+            <mat-label>Talle *</mat-label>    
+            <input 
+            matInput
+            disabled
+            value="Elegir tipo de talle"
+            />
+        </mat-form-field>
+    }
+
+    <mat-form-field appearence = "outline">
+        <mat-label>Color</mat-label>      
+        <mat-select [formControl]="form.controls.color">
+             @for (color of Color; track color){
+             <mat-option [value]="color.value">{{color.key}}</mat-option>
+             }
+         </mat-select>
+         <mat-error>{{obtenerError(form.controls.color)}}</mat-error>
+
+     </mat-form-field>
+
+    <mat-form-field appearence = "outline">
+        <mat-label>Precio ($)</mat-label>      
+        <input 
+        type="number" 
+        min="1" 
+        [formControl]="form.controls.precio" 
+        matInput
+        />
+        <mat-error>{{obtenerError(form.controls.precio)}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearence = "outline">
+        <mat-label>Descuento (%)</mat-label>      
+        <input 
+        type="number" 
+        min=0
+        max=100
+        [formControl]="form.controls.descuento" 
+        matInput
+        />
+        <mat-error>{{obtenerError(form.controls.descuento,"El campo requiere un valor entre 0-100.")}}</mat-error>
+
+    </mat-form-field>
+
+    @if(form.controls.descuento.value && form.controls.descuento.value > 0){
+        <mat-form-field appearence = "outline">
+            <mat-label>Fin de descuento</mat-label> 
+            <input readonly [formControl]="form.controls.fechaFinDescuento" 
+            matInput [matDatepicker]="picker" [min] ="minDate"> 
+            <mat-hint>MM/DD/AAAA</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error>{{obtenerError(form.controls.fechaFinDescuento,"El campo requiere un valor.")}}</mat-error>
+        </mat-form-field>
+        }@else{
+            <mat-form-field appearence = "outline">
+                <mat-label>Fin de descuento</mat-label> 
+                <input disabled matInput [matDatepicker]="picker">
+                <mat-hint>MM/DD/AAAA</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        }  
+
+    <div class ='footer'>
+        <p class ="letraChica">Los campos con * son requeridos.</p>
+        <button type="submit" [disabled] = "form.invalid" mat-flat-button>Guardar cambios</button>
+        <a mat-stroked-button routerLink="/productos" >Cancelar</a>
+    </div>
+</form>

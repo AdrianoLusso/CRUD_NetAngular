@@ -1,0 +1,46 @@
+a {
+    margin-right: 1rem;
+}
+
+.indice-elementos {
+    margin-top: 1rem;
+}
+.catalog{
+    display: block;  /* Asegura que el grid se comporte como un bloque de contenido desplazable */
+    overflow-y: auto;   /* Permite el desplazamiento vertical */
+}
+
+.loading-container {
+    display: flex;                
+    justify-content: center;      
+    align-items: center;          
+    height: 100vh;               
+    width: 100%;                 
+  }
+  
+
+mat-grid-tile {
+    /*background: lightblue;*/
+  }
+
+mat-card{
+    width: 90%;
+    height: 90%;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+mat-card-footer{
+    display: flex;             /* Usamos Flexbox para el layout */
+  justify-content: center;
+}
+
+.info-precios{
+    display: flex;
+}
+.precioViejo{
+    color:darkred;
+    text-decoration: line-through;
+}
+
+  

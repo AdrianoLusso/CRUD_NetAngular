@@ -1,0 +1,47 @@
+<!--<button math-flat-button routerLink="/productos/crear">
+    Agregar prenda de ropa
+</button>-->
+
+@if (ropas != null){
+    <div class="catalog">
+    <mat-grid-list cols="2" rowHeight="17rem">
+
+        @for (ropa of ropas; track ropa){
+            <mat-grid-tile>
+                <mat-card appearance="outlined">
+                    <mat-card-header>
+                        <mat-card-title>{{ropa.modelo}}</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>Marca {{ropa.marca}}, talle {{ropa.talle}}, color {{ropa.color}}</p>
+                        <div class = "info-precios">
+                        @if(ropa.descuento == 0 || ropa.fechaFinDescuento <= currentDate){
+
+                            <p>{{ropa.precio}} $</p>
+                        }@else{
+                             <p class="precioViejo">{{ropa.precio}}$</p>
+                            <p>, {{calcularDescuento(ropa.precio,ropa.descuento)}}$ con un descuento del {{ropa.descuento}}%</p>
+                        }
+                        </div>
+
+
+                    </mat-card-content>
+                    <mat-card-footer>
+                        <a mat-flat-button routerLink="/productos/editar/{{ropa.codigo}}">Editar</a>
+                    <button mat-flat-button 
+                    (confirm)="borrar(ropa.codigo)"
+                    [swal]="{title:'Confirmación',text:'¿Deseas borrar esta prenda de ropa?',showCancelButton:true}"
+                    >
+                        Borrar
+                    </button>
+                    </mat-card-footer>
+                  </mat-card>            
+            </mat-grid-tile>
+        }
+    </mat-grid-list>
+    </div>
+} @else {
+    <div class ="loading-container">
+        <app-loading></app-loading>
+    </div>
+}

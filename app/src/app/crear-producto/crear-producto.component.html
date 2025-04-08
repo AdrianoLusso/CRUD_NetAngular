@@ -1,0 +1,8 @@
+<app-mostrar-errores [errores] = "errores"></app-mostrar-errores>
+
+<app-formulario-producto 
+    titulo="Crear prenda de ropa"
+    [editar]="false" 
+    (posteoFormulario)="guardarCambios($event)">
+</app-formulario-producto>
+
