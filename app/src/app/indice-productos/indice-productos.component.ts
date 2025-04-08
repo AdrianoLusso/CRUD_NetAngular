@@ -30,7 +30,6 @@ export class IndiceProductosComponent {
       this.cargarProductos();
       this.currentDate = new Date();
       this.currentDate.setHours(0,0,0,0);
-      console.log(this.currentDate)      
     }
 
     cargarProductos()

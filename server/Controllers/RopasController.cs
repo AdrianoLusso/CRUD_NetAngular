@@ -48,7 +48,6 @@ namespace server.Controllers
             }
             
 
-            Console.WriteLine("EN SERVER",ropa);
             context.Add(ropa);
             await context.SaveChangesAsync();
             return CreatedAtRoute("getRopaByCodigo", new {codigo = ropa.Codigo},ropa);
@@ -63,7 +62,6 @@ namespace server.Controllers
             {
                 return NotFound();
             }
-            Console.WriteLine("ACAAAA",ropa);
             ropa.Codigo = codigo;
             context.Update(ropa);
             await context.SaveChangesAsync();
